@@ -1,0 +1,45 @@
+\documentclass[a4paper, 12bp, twoside, thesisonly, noblind]{iseebachelor}
+%-----------------------------------------------------------------
+% global information
+%-----------------------------------------------------------------
+\newcommand{\StudentName}{张三}
+\newcommand{\StudentID}{3220106666}
+\newcommand{\Supervisor}{李四 教授}
+\newcommand{\Grade}{2022级}
+\newcommand{\Major}{电子科学与技术}
+\newcommand{\College}{信息与电子工程学院}
+\newcommand{\ProjectName}{这是课题题目}
+%-----------------------------------------------------------------
+% main doc
+%-----------------------------------------------------------------
+\begin{document}
+% 目录
+\makecover
+% 原创性声明
+\pagestyle{infoPage}
+\include{doc_thesis/contents/01_Statement}
+% 致谢
+\include{doc_thesis/contents/02_Acknowledgments}
+% 摘要
+\include{doc_thesis/contents/03_Abstract}
+% 目录页
+\newpage
+\pagestyle{indexPage}
+\tableofcontents
+% \vspace{12pt}\noindent {\CJKfamily{simhei}\fontsize{12bp}{18bp}\bfseries \hspace{0.36em}《浙江大学本科生文献综述和开题报告考核表》}\vspace{6pt}
+% 正文字体设置
+\globalmainfont
+% 正文部分
+\includepdf[pages=-]{doc_thesis/contents/Part1_Pagination.pdf}
+\pagestyle{mainPage}
+\include{doc_thesis/contents/04_Main}
+% 任务书
+\pagestyle{blankPage}
+\include{doc_thesis/contents/05_Task}
+\include{doc_thesis/contents/06_Eval}
+% \include{contents/01_Review}
+% \include{contents/02_Report}
+% \include{contents/03_Translate}
+% \include{contents/04_TransOriginal}
+% \include{contents/05_Eval}
+\end{document}

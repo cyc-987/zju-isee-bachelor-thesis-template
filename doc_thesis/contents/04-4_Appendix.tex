@@ -1,0 +1,38 @@
+% {
+% \newpage
+% \bibliographystyle{gbt7714-numerical}
+% \phantomsection
+% {\begin{center}\setfont{3}{1}\bfseries\vspace{0.5ex}参考文献\vspace{0.5ex}\end{center}}
+% {\normalfont\CJKfamily{simsun}\zihao{5}\setlength{\baselineskip}{14pt}
+% \renewcommand{\refname}{\vspace{-\baselineskip}}
+% \bibliography{doc_thesis/refs/MainReference}}
+% }
+{
+\cleardoublepage % 双面排版
+\phantomsection
+\addcontentsline{toc}{sectionnoid}{参考文献}
+
+% 自有标题
+\begin{center}
+  \setfont{3}{1}\bfseries \vspace{0.5ex}参考文献\vspace{0.5ex}
+\end{center}
+
+% 正文参考文献排版
+\begingroup
+\normalfont\CJKfamily{simsun}\zihao{5}\setlength{\baselineskip}{14pt}
+\renewcommand{\bibsection}{} % natbib：禁止自动再输出标题
+\bibliographystyle{gbt7714-numerical}
+\bibliography{doc_thesis/refs/MainReference}
+\endgroup
+}
+
+{
+\newpage
+\phantomsection
+\addcontentsline{toc}{sectionnoid}{附录}
+
+% 自有标题
+\begin{center}
+  \setfont{3}{1}\bfseries \vspace{0.5ex}附录\vspace{0.5ex}
+\end{center}
+}
