@@ -1,8 +1,20 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{iseebachelor}[2026/03/05 ZJU bachelor thesis class]
+\ProvidesClass{iseebachelor}[2026/03/06 ZJU bachelor final thesis class]
 %-----------------------------------------------------------------
 % load class options
 %-----------------------------------------------------------------
+\RequirePackage{ifthen}
+% 控制完全体/仅毕业论文，默认为仅毕业论文
+\newboolean{myfull}
+\setboolean{myfull}{false}
+\DeclareOption{final}{\setboolean{myfull}{true}}
+\DeclareOption{thesisonly}{\setboolean{myfull}{false}}
+% 控制是否为盲审模式
+\newboolean{myblind}
+\setboolean{myblind}{false}
+\DeclareOption{blind}{\setboolean{myblind}{true}}
+\DeclareOption{noblind}{\setboolean{myblind}{false}}
+% other options pass through to ctexart
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexart}}
 \ProcessOptions\relax
 \LoadClass{ctexart}
@@ -43,21 +55,6 @@
 \RequirePackage{multido}
 \RequirePackage{makecell}
 %-----------------------------------------------------------------
-% load control options
-%-----------------------------------------------------------------
-% 控制完全体/仅毕业论文，默认为仅毕业论文
-\newboolean{myfull}
-\setboolean{myfull}{false}
-\DeclareOption{final}{\setboolean{myfull}{true}}
-\DeclareOption{thesisonly}{\setboolean{myfull}{false}}
-% 控制是否为盲审模式
-\newboolean{myblind}
-\setboolean{myblind}{false}
-\DeclareOption{blind}{\setboolean{myblind}{true}}
-\DeclareOption{noblind}{\setboolean{myblind}{false}}
-
-\ProcessOptions\relax
-%-----------------------------------------------------------------
 % format settings
 %-----------------------------------------------------------------
 % 页边距
@@ -88,7 +85,13 @@
   labelsep=space,
   singlelinecheck=true  % 单行要保留居中
 }
-\RequirePackage[colorlinks=true,linkcolor=black,citecolor=black,CJKbookmarks=true]{hyperref}
+\RequirePackage[
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  CJKbookmarks=true,
+  hypertexnames=false
+]{hyperref}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
 % 公式设定
 \numberwithin{equation}{section} % 将公式编号与章节关联
@@ -123,11 +126,18 @@ Test content. Test content. Test content. Test content. Test content. Test conte
 % head&foot settings
 %-----------------------------------------------------------------
 % 设置自定义页眉页脚样式
+\setlength{\headheight}{12.64724pt}
+\addtolength{\topmargin}{-0.64724pt}
 \fancypagestyle{infoPage}{
     \fancyhf{}
     \pagenumbering{Roman}\setcounter{page}{3}
     \fancyhead[R]{\headfont \ProjectName}
     \fancyfoot[C]{\footfont \thepage}
+}
+\fancypagestyle{trinfoPage}{
+    \fancyhf{}
+    \fancyhead[R]{\headfont \ProjectName}
+    \fancyfoot{} 
 }
 \fancypagestyle{indexPage}{
     \fancyhf{}
@@ -149,62 +159,161 @@ Test content. Test content. Test content. Test content. Test content. Test conte
   \renewcommand{\footrulewidth}{0pt}% 取消页脚线
 }
 %-----------------------------------------------------------------
+% style switcher & dual-TOC support (3in1 + thesis)
+%-----------------------------------------------------------------
+%----------------------
 % heading settings
-%-----------------------------------------------------------------
-% 多级标题设置
-\setcounter{secnumdepth}{4}
-\titleformat{\section}[block]
-    {\setfont{3}{1}\bfseries}
-    {\arabic{section}}{1em}{}
-\titleformat{\subsection}[block]
-    {\setfont{-3}{1}\bfseries}
-    {\arabic{section}.\arabic{subsection}}{0.5em}{}
-\titleformat{\subsubsection}[block]
-    {\setfont{4}{1}\bfseries}
-    {\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}{0.5em}{}
-\titleformat{\paragraph}
-    {\setfont{4}{1.5}\bfseries}
-    {\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.\arabic{paragraph}}{0.5em}{}
-% 设置段间距
-\titlespacing{\section}{0pt}{8bp}{8bp}
-\titlespacing{\subsection}{0pt}{6pt}{6pt}
-\titlespacing{\subsubsection}{0pt}{6pt}{6pt}
-\titlespacing{\paragraph}{0pt}{0bp}{0bp}
-%-----------------------------------------------------------------
+%----------------------
+\newcommand{\ZJUSetupThesisHeading}{
+    % 多级标题设置
+    \setcounter{secnumdepth}{4}
+    \titleformat{\section}[block]
+        {\setfont{3}{1}\bfseries}
+        {\arabic{section}}{1em}{}
+    \titleformat{\subsection}[block]
+        {\setfont{-3}{1}\bfseries}
+        {\arabic{section}.\arabic{subsection}}{0.5em}{}
+    \titleformat{\subsubsection}[block]
+        {\setfont{4}{1}\bfseries}
+        {\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}{0.5em}{}
+    \titleformat{\paragraph}
+        {\setfont{4}{1.5}\bfseries}
+        {\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.\arabic{paragraph}}{0.5em}{}
+    % 设置段间距
+    \titlespacing{\section}{0pt}{8bp}{8bp}
+    \titlespacing{\subsection}{0pt}{6pt}{6pt}
+    \titlespacing{\subsubsection}{0pt}{6pt}{6pt}
+    \titlespacing{\paragraph}{0pt}{0bp}{0bp}
+}
+%----------------------
 % content settings
-%-----------------------------------------------------------------
-\renewcommand{\contentsname}{\texorpdfstring{\setfont{3}{1}\bfseries\makebox[\linewidth][c]{目录}\vspace{0.5ex}}{目录}} 
-\setcounter{tocdepth}{3}
-\renewcommand{\thesection}{\CJKfamily{simhei}\arabic{section}}
-\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
-\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
-\renewcommand{\theparagraph}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.\arabic{paragraph}}
+%----------------------
+\newcommand{\ZJUSetupThesisTOCStyle}{
+    \renewcommand{\contentsname}{\texorpdfstring{\setfont{3}{1}\bfseries\makebox[\linewidth][c]{目录}\vspace{0.5ex}}{目录}} 
+    \setcounter{tocdepth}{3}
+    \renewcommand{\thesection}{\CJKfamily{simhei}\arabic{section}}
+    \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+    \renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+    \renewcommand{\theparagraph}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.\arabic{paragraph}}
+    
+    \titlecontents{thsection}[2em]
+        {\CJKfamily{simhei}\bfseries\setfont{-4}{1.5}}
+        {\contentslabel{2em}}{}
+        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+    \titlecontents{thsubsection}[2.5em]
+        {\setfont{-4}{1.5}}
+        {\contentslabel{1.5em}}{}
+        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+    \titlecontents{thsubsubsection}[4.5em]
+        {\setfont{-4}{1.5}}
+        {\contentslabel{2.5em}}{}
+        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+    \titlecontents{thparagraph}[5.5em]
+        {\setfont{-4}{1.5}}
+        {\contentslabel{3.5em}}{}
+        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+    % other contents
+    \titlecontents{thsectionnoid}[0em]
+        {\CJKfamily{simhei}\bfseries\setfont{-4}{1.5}}
+        {}{}
+        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+    \titlecontents{thsectionnoiddot}[0em]
+        {\CJKfamily{simhei}\bfseries\setfont{-4}{1.5}}% 格式
+        {}{}% 有编号时的 label % 无编号时的 label
+        {}% 标题前代码
+}
+%----------------------
+% heading settings
+%----------------------
+\newcommand{\ZJUSetupThreeInOneHeading}{
+    % 多级标题设置
+    \setcounter{secnumdepth}{4}
+    \titleformat{\section}[block]{\centering\setfont{3}{1}\bfseries}{\chinese{section}、}{0pt}{}
+    \titleformat{\subsection}[block]{\setfont{3}{1}\bfseries}{\arabic{subsection}}{0.5em}{}
+    \titleformat{\subsubsection}[block]{\setfont{-3}{1}\bfseries}{\arabic{subsection}.\arabic{subsubsection}}{0.5em}{}
+    \titleformat{\paragraph}{\setfont{4}{1.5}\bfseries}{\arabic{subsection}.\arabic{subsubsection}.\arabic{paragraph}}{0.5em}{}
+    % 设置段间距
+    \titlespacing{\section}{0pt}{12pt}{6pt}
+    \titlespacing{\subsection}{0pt}{8bp}{8bp}
+    \titlespacing{\subsubsection}{0pt}{7.5bp}{7.5bp}
+    \titlespacing{\paragraph}{0pt}{0bp}{0bp}
+}
+%----------------------
+% content settings
+%----------------------
+\newcommand{\ZJUSetupThreeInOneTOCStyle}{
+    % content settings
+    \renewcommand{\contentsname}{\setfont{3}{2}\bfseries\centering 目录} 
+    \setcounter{tocdepth}{3}
+    \renewcommand{\thesection}{\CJKfamily{simhei}\chinese{section}、}
+    \renewcommand{\thesubsection}{\arabic{subsection}}
+    \renewcommand{\thesubsubsection}{\arabic{subsection}.\arabic{subsubsection}}
+    \renewcommand{\theparagraph}{\arabic{subsection}.\arabic{subsubsection}.\arabic{paragraph}}
+    
+    \titlecontents{trsection}[2em]
+        {\CJKfamily{simhei}\bfseries\setfont{-4}{1.5}}
+        {\contentslabel{2em}}{}{\titlerule*[0.5pc]{$\cdot$}\contentspage}
+    \titlecontents{trsubsection}[2.5em]
+        {\setfont{-4}{1.5}}{\contentslabel{1em}}{}
+        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+    \titlecontents{trsubsubsection}[4.5em]
+        {\setfont{-4}{1.5}}{\contentslabel{1.83em}}{}
+        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+    \titlecontents{trparagraph}[5.5em]{\setfont{-4}{1.5}}
+        {\contentslabel{2.67em}}{}
+        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+    % other contents
+    \titlecontents{trsectionnoiddot}[0em]
+        {\CJKfamily{simhei}\bfseries\setfont{-4}{1.5}}{}{}{}
+}
 
-\titlecontents{section}[2em]
-    {\CJKfamily{simhei}\bfseries\setfont{-4}{1.5}}
-    {\contentslabel{2em}}{}
-    {\titlerule*[0.5pc]{$\cdot$}\contentspage}
-\titlecontents{subsection}[2.5em]
-    {\setfont{-4}{1.5}}
-    {\contentslabel{1.5em}}{}
-    {\titlerule*[0.5pc]{$\cdot$}\contentspage}
-\titlecontents{subsubsection}[4.5em]
-    {\setfont{-4}{1.5}}
-    {\contentslabel{2.5em}}{}
-    {\titlerule*[0.5pc]{$\cdot$}\contentspage}
-\titlecontents{paragraph}[5.5em]
-    {\setfont{-4}{1.5}}
-    {\contentslabel{3.5em}}{}
-    {\titlerule*[0.5pc]{$\cdot$}\contentspage}
-% other contents
-\titlecontents{sectionnoid}[0em]
-    {\CJKfamily{simhei}\bfseries\setfont{-4}{1.5}}
-    {}{}
-    {\titlerule*[0.5pc]{$\cdot$}\contentspage}
-\titlecontents{sectionnoiddot}[0em]
-    {\CJKfamily{simhei}\bfseries\setfont{-4}{1.5}}% 格式
-    {}{}% 有编号时的 label % 无编号时的 label
-    {}% 标题前代码
+\makeatletter
+% public environment: compile 3-in-1 part with its own heading + toc style
+\newcommand{\ZJUStartThreeInOnePart}{
+    \ZJUSetupThreeInOneHeading
+    \ZJUSetupThreeInOneTOCStyle
+    % float/equation numbering like isee3in1
+    \renewcommand{\thetable}{\arabic{subsection}.\arabic{table}}
+    \numberwithin{equation}{subsection}
+    \numberwithin{figure}{subsection}
+    \numberwithin{table}{subsection}
+    % reset counters so 3-in-1 starts from 1
+    \setcounter{section}{0}\setcounter{subsection}{0}\setcounter{subsubsection}{0}\setcounter{paragraph}{0}%
+    \setcounter{figure}{0}\setcounter{table}{0}\setcounter{equation}{0}%
+}
+\newcommand{\ZJUStopThreeInOnePart}{
+    % restore thesis numbering
+    \renewcommand{\thetable}{\arabic{section}.\arabic{table}}
+    \numberwithin{equation}{section}
+    \renewcommand{\theequation}{\arabic{section}-\arabic{equation}}
+    \numberwithin{figure}{section}
+    \numberwithin{table}{section}
+    \ZJUSetupThesisHeading
+    \ZJUSetupThesisTOCStyle
+}
+\newenvironment{ThreeInOnePart}{\ZJUStartThreeInOnePart}{\ZJUStopThreeInOnePart}
+
+% print a single TOC page but with two styles
+\newcommand{\ZJUPrintCombinedTOC}{
+    \phantomsection
+    \pdfbookmark[0]{目录}{toc}
+    \section*{\contentsname}
+    % 第一部分：毕业论文目录
+    \begingroup
+        \setcounter{tocdepth}{3}
+        \ZJUSetupThesisTOCStyle
+        \printcontents[thesis]{th}{1}{}
+    \endgroup
+    
+    % 第二部分：三合一目录
+    \begingroup
+        \vspace{0.5ex}
+        \setcounter{tocdepth}{3}
+        \ZJUSetupThreeInOneTOCStyle
+        \printcontents[threeinone]{tr}{1}{}
+    \endgroup
+}
+\makeatother
 %-----------------------------------------------------------------
 % cover
 %-----------------------------------------------------------------
