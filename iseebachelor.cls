@@ -101,6 +101,21 @@
 % 设置 enumerate 的编号格式为 (1)
 \renewcommand{\theenumi}{(\arabic{enumi})}
 \renewcommand{\labelenumi}{\theenumi}
+% ---- bibliography spacing (single space like Word) ----
+\AtBeginDocument{%
+  \let\origthebibliography\thebibliography
+  \let\endorigthebibliography\endthebibliography
+  \renewenvironment{thebibliography}[1]{%
+    \origthebibliography{#1}%
+    \setstretch{1.0}% 单倍行距（覆盖全局 onehalfspacing）
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\parskip}{0pt}%
+    \setlength{\topsep}{0pt}%
+  }{%
+    \endorigthebibliography
+  }%
+}
 %-----------------------------------------------------------------
 % Syntactic sugar
 %-----------------------------------------------------------------
