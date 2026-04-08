@@ -156,7 +156,7 @@ Test content. Test content. Test content. Test content. Test content. Test conte
 }
 \fancypagestyle{indexPage}{
     \fancyhf{}
-	\pagenumbering{Roman}\setcounter{page}{9}
+	\pagenumbering{Roman}\setcounter{page}{11}
 	\fancyhead[RO]{\headfont \ProjectName}
     \fancyhead[LE]{\headfont{浙江大学本科生毕业论文（设计）}}
 	\fancyfoot[C]{\footfont \thepage}
@@ -259,7 +259,7 @@ Test content. Test content. Test content. Test content. Test content. Test conte
 \newcommand{\ZJUSetupThreeInOneTOCStyle}{
     % content settings
     \renewcommand{\contentsname}{\setfont{3}{2}\bfseries\centering 目录} 
-    \setcounter{tocdepth}{3}
+    \setcounter{tocdepth}{1}
     \renewcommand{\thesection}{\CJKfamily{simhei}\chinese{section}、}
     \renewcommand{\thesubsection}{\arabic{subsection}}
     \renewcommand{\thesubsubsection}{\arabic{subsection}.\arabic{subsubsection}}
@@ -365,6 +365,8 @@ Test content. Test content. Test content. Test content. Test content. Test conte
     \begin{center}
         \zihao{3}
         \makebox[2.5em][l]{\infotext{题目}}\underline{\makebox[18.5em][c]{\infotextnobf{\ProjectName}}} \\
+        % 如果题目一行放不下启用下面这行，把上面一行注释掉
+        % \makebox[2.5em][l]{\infotext{题目}}\underline{\parbox[c]{18.5em}{\centering \infotextnobf{\ProjectName}}} \\
         \blankline{2}{1}
         \blankline{2}{1}
         \makebox[5.5em][l]{\infotext{姓名与学号}}\underline{\makebox[15.5em][c]{\infotextnobf{\ifthenelse{\boolean{myblind}}{}{\StudentName\ \StudentID}}}} \\[16pt]
