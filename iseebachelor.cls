@@ -200,6 +200,27 @@ Test content. Test content. Test content. Test content. Test content. Test conte
     \titlespacing{\subsubsection}{0pt}{6pt}{6pt}
     \titlespacing{\paragraph}{0pt}{0bp}{0bp}
 }
+
+\newcommand{\ZJUSetupAppendixHeading}{
+    \setcounter{secnumdepth}{3}
+
+    \titleformat{\section}[block]
+        {\setfont{3}{1}\bfseries}
+        {\thesection}{1em}{}
+    
+    \titleformat{\subsection}[block]
+        {\setfont{-3}{1}\bfseries}
+        {\thesubsection}{0.5em}{}
+    
+    \titleformat{\subsubsection}[block]
+        {\setfont{4}{1}\bfseries}
+        {\thesubsubsection}{0.5em}{}
+
+    % 设置段间距
+    \titlespacing{\section}{0pt}{8bp}{8bp}
+    \titlespacing{\subsection}{0pt}{6pt}{6pt}
+    \titlespacing{\subsubsection}{0pt}{6pt}{6pt}
+}
 %----------------------
 % content settings
 %----------------------
