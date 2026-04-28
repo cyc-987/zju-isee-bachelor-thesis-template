@@ -58,7 +58,17 @@
 % format settings
 %-----------------------------------------------------------------
 % 页边距
-\geometry{top=25.4mm,bottom=25.4mm,left=31.7mm,right=31.7mm}
+% \geometry{top=25.4mm,bottom=25.4mm,left=31.7mm,right=31.7mm}
+\geometry{
+  a4paper,
+  top=25.95mm,
+  bottom=25.4mm,
+  left=31.7mm,
+  right=31.7mm,
+  headheight=12.65pt,
+  headsep=4.95mm,
+  footskip=13.4mm
+}
 % 首行缩进
 \setlength{\parindent}{2em}
 % 全局行距1.5
@@ -141,8 +151,8 @@ Test content. Test content. Test content. Test content. Test content. Test conte
 % head&foot settings
 %-----------------------------------------------------------------
 % 设置自定义页眉页脚样式
-\setlength{\headheight}{12.64724pt}
-\addtolength{\topmargin}{-0.64724pt}
+% \setlength{\headheight}{12.64724pt}
+% \addtolength{\topmargin}{-0.64724pt}
 \fancypagestyle{infoPage}{
     \fancyhf{}
     \pagenumbering{Roman}\setcounter{page}{3}
@@ -357,7 +367,7 @@ Test content. Test content. Test content. Test content. Test content. Test conte
     \thispagestyle{empty}
     
     \begin{flushright}
-      \CJKfamily{simsun}\bfseries\setfont{5}{1.5} 涉密论文 $\square$ ~~ 公开论文 $\square$ \multido{}{3}{\quad}
+      \CJKfamily{simsun}\bfseries\setfont{5}{1.5} 涉密论文 $\square$ ~~ 公开论文 $\rlap{\checkmark}\square$ \multido{}{3}{\quad}
     \end{flushright}
     
     \blankline{5}{1.5}
@@ -395,7 +405,7 @@ Test content. Test content. Test content. Test content. Test content. Test conte
         \makebox[5.5em][l]{\infotext{年级与专业}}\underline{\makebox[15.5em][c]{\infotextnobf{\ifthenelse{\boolean{myblind}}{}{\Grade\ \Major}}}} \\[16pt]
         \makebox[5.5em][l]{\infotext{所在学院}}\underline{\makebox[15.5em][c]{\infotextnobf{\ifthenelse{\boolean{myblind}}{}{\College}}}} \\[16pt]
         \blankline{-3}{1.5}
-        \makebox[5.5em][l]{\infotext{提交日期}}\underline{\makebox[15.5em][c]{\infotextnobf{\today}}} \\
+        \makebox[5.5em][l]{\infotext{提交日期}}\underline{\makebox[15.5em][c]{\infotextnobf{2026年6月5日}}} \\
     \end{center}
     
     \clearpage
