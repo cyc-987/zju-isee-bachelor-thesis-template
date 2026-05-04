@@ -38,7 +38,7 @@
 }
 
 \appendix
-\ZJUSetupAppendixHeading
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}%控制附录在目录的深度
 
 \section{附录一级标题}
 
@@ -47,6 +47,8 @@
 \subsection{附录二级标题}
 
 \bullshit
+
+\unappendix
 
 {
 \newpage

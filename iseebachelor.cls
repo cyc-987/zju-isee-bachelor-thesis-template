@@ -210,7 +210,9 @@ Test content. Test content. Test content. Test content. Test content. Test conte
     \titlespacing{\subsubsection}{0pt}{6pt}{6pt}
     \titlespacing{\paragraph}{0pt}{0bp}{0bp}
 }
-
+%----------------------
+% appendix settings
+%----------------------
 \newcommand{\ZJUSetupAppendixHeading}{
     \setcounter{secnumdepth}{3}
 
@@ -230,6 +232,48 @@ Test content. Test content. Test content. Test content. Test content. Test conte
     \titlespacing{\section}{0pt}{8bp}{8bp}
     \titlespacing{\subsection}{0pt}{6pt}{6pt}
     \titlespacing{\subsubsection}{0pt}{6pt}{6pt}
+}
+
+% 保存正文 section 编号
+\newcounter{zjusavesection}
+% 保存附录 section 编号，便于多次切换
+\newcounter{zjuappendixsection}
+% 重定义 appendix：进入附录前保存当前 section 编号
+\renewcommand{\appendix}{%
+  \par
+  \setcounter{zjusavesection}{\value{section}}%
+  \setcounter{section}{\value{zjuappendixsection}}%
+  \setcounter{subsection}{0}%
+  \gdef\thesection{\@Alph\c@section}%
+  \gdef\thesubsection{\@Alph\c@section.\@arabic\c@subsection}%
+  \ZJUSetupAppendixHeading
+}
+
+% 退出 appendix，恢复到三合一编号状态
+\newcommand{\unappendix}{%
+  \par
+  \setcounter{zjuappendixsection}{\value{section}}%
+  \setcounter{section}{\value{zjusavesection}}%
+  \setcounter{subsection}{0}%
+  \setcounter{subsubsection}{0}%
+  \setcounter{paragraph}{0}%
+
+  % 恢复三合一编号体系
+  \gdef\thesection{\chinese{section}、}%
+  \gdef\thesubsection{\arabic{subsection}}%
+  \gdef\thesubsubsection{\arabic{subsection}.\arabic{subsubsection}}%
+  \gdef\theparagraph{\arabic{subsection}.\arabic{subsubsection}.\arabic{paragraph}}%
+
+  % hyperref 锚点，避免继续沿用 appendix 的锚点体系
+  \@ifundefined{theHsection}{}{%
+    \gdef\theHsection{threeinone.\arabic{section}}%
+    \gdef\theHsubsection{threeinone.\arabic{section}.\arabic{subsection}}%
+    \gdef\theHsubsubsection{threeinone.\arabic{section}.\arabic{subsection}.\arabic{subsubsection}%
+    }%
+  }%
+
+  \ZJUSetupThreeInOneHeading
+  \ZJUSetupThreeInOneTOCStyle
 }
 %----------------------
 % content settings
