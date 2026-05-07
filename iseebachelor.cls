@@ -287,7 +287,7 @@ Test content. Test content. Test content. Test content. Test content. Test conte
     \renewcommand{\theparagraph}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.\arabic{paragraph}}
     
     \titlecontents{thsection}[2em]
-        {\CJKfamily{simhei}\bfseries\setfont{-4}{1.5}}
+        {\CJKfamily{simhei}\setfont{-4}{1.5}}
         {\contentslabel{2em}}{}
         {\titlerule*[0.5pc]{$\cdot$}\contentspage}
     \titlecontents{thsubsection}[2.5em]
@@ -304,11 +304,11 @@ Test content. Test content. Test content. Test content. Test content. Test conte
         {\titlerule*[0.5pc]{$\cdot$}\contentspage}
     % other contents
     \titlecontents{thsectionnoid}[0em]
-        {\CJKfamily{simhei}\bfseries\setfont{-4}{1.5}}
+        {\CJKfamily{simhei}\setfont{-4}{1.5}}
         {}{}
         {\titlerule*[0.5pc]{$\cdot$}\contentspage}
     \titlecontents{thsectionnoiddot}[0em]
-        {\CJKfamily{simhei}\bfseries\setfont{-4}{1.5}}% 格式
+        {\CJKfamily{simhei}\setfont{-4}{1.5}}% 格式
         {}{}% 有编号时的 label % 无编号时的 label
         {}% 标题前代码
 }
@@ -335,13 +335,13 @@ Test content. Test content. Test content. Test content. Test content. Test conte
     % content settings
     \renewcommand{\contentsname}{\setfont{3}{2}\bfseries\centering 目录} 
     \setcounter{tocdepth}{1}
-    \renewcommand{\thesection}{\CJKfamily{simhei}\chinese{section}、}
+    \renewcommand{\thesection}{\chinese{section}、}
     \renewcommand{\thesubsection}{\arabic{subsection}}
     \renewcommand{\thesubsubsection}{\arabic{subsection}.\arabic{subsubsection}}
     \renewcommand{\theparagraph}{\arabic{subsection}.\arabic{subsubsection}.\arabic{paragraph}}
     
     \titlecontents{trsection}[2em]
-        {\CJKfamily{simhei}\bfseries\setfont{-4}{1.5}}
+        {\setfont{-4}{1.5}}
         {\contentslabel{2em}}{}{\titlerule*[0.5pc]{$\cdot$}\contentspage}
     \titlecontents{trsubsection}[2.5em]
         {\setfont{-4}{1.5}}{\contentslabel{1em}}{}
@@ -354,7 +354,7 @@ Test content. Test content. Test content. Test content. Test content. Test conte
         {\titlerule*[0.5pc]{$\cdot$}\contentspage}
     % other contents
     \titlecontents{trsectionnoiddot}[0em]
-        {\CJKfamily{simhei}\bfseries\setfont{-4}{1.5}}{}{}{}
+        {\CJKfamily{simhei}\setfont{-4}{1.5}}{}{}{}
 }
 
 \makeatletter
