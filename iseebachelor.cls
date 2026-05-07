@@ -61,7 +61,7 @@
 % \geometry{top=25.4mm,bottom=25.4mm,left=31.7mm,right=31.7mm}
 \geometry{
   a4paper,
-  top=25.95mm,
+  top=29.6mm,
   bottom=25.4mm,
   left=31.7mm,
   right=31.7mm,
@@ -99,6 +99,7 @@
   colorlinks=true,
   linkcolor=black,
   citecolor=black,
+  urlcolor=black,
   CJKbookmarks=true,
   hypertexnames=false
 ]{hyperref}
@@ -289,24 +290,24 @@ Test content. Test content. Test content. Test content. Test content. Test conte
     \titlecontents{thsection}[2em]
         {\CJKfamily{simhei}\setfont{-4}{1.5}}
         {\contentslabel{2em}}{}
-        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+        {\mdseries\titlerule*[0.25pc]{$\cdot$}\contentspage}
     \titlecontents{thsubsection}[2.5em]
         {\setfont{-4}{1.5}}
         {\contentslabel{1.5em}}{}
-        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+        {\mdseries\titlerule*[0.25pc]{$\cdot$}\contentspage}
     \titlecontents{thsubsubsection}[4.5em]
         {\setfont{-4}{1.5}}
         {\contentslabel{2.5em}}{}
-        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+        {\mdseries\titlerule*[0.25pc]{$\cdot$}\contentspage}
     \titlecontents{thparagraph}[5.5em]
         {\setfont{-4}{1.5}}
         {\contentslabel{3.5em}}{}
-        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+        {\mdseries\titlerule*[0.25pc]{$\cdot$}\contentspage}
     % other contents
     \titlecontents{thsectionnoid}[0em]
         {\CJKfamily{simhei}\setfont{-4}{1.5}}
         {}{}
-        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+        {\mdseries\titlerule*[0.25pc]{$\cdot$}\contentspage}
     \titlecontents{thsectionnoiddot}[0em]
         {\CJKfamily{simhei}\setfont{-4}{1.5}}% 格式
         {}{}% 有编号时的 label % 无编号时的 label
@@ -342,16 +343,16 @@ Test content. Test content. Test content. Test content. Test content. Test conte
     
     \titlecontents{trsection}[2em]
         {\setfont{-4}{1.5}}
-        {\contentslabel{2em}}{}{\titlerule*[0.5pc]{$\cdot$}\contentspage}
+        {\contentslabel{2em}}{}{\mdseries\titlerule*[0.25pc]{$\cdot$}\contentspage}
     \titlecontents{trsubsection}[2.5em]
         {\setfont{-4}{1.5}}{\contentslabel{1em}}{}
-        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+        {\mdseries\titlerule*[0.25pc]{$\cdot$}\contentspage}
     \titlecontents{trsubsubsection}[4.5em]
         {\setfont{-4}{1.5}}{\contentslabel{1.83em}}{}
-        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+        {\mdseries\titlerule*[0.25pc]{$\cdot$}\contentspage}
     \titlecontents{trparagraph}[5.5em]{\setfont{-4}{1.5}}
         {\contentslabel{2.67em}}{}
-        {\titlerule*[0.5pc]{$\cdot$}\contentspage}
+        {\mdseries\titlerule*[0.25pc]{$\cdot$}\contentspage}
     % other contents
     \titlecontents{trsectionnoiddot}[0em]
         {\CJKfamily{simhei}\setfont{-4}{1.5}}{}{}{}
@@ -408,6 +409,10 @@ Test content. Test content. Test content. Test content. Test content. Test conte
 % cover
 %-----------------------------------------------------------------
 \newcommand{\makecover}{
+    \newgeometry{
+        top=25.4mm, bottom=25.4mm, left=31.7mm, right=31.7mm,
+        headheight=0pt, headsep=0pt
+    }
     \thispagestyle{empty}
     
     \begin{flushright}
@@ -417,7 +422,7 @@ Test content. Test content. Test content. Test content. Test content. Test conte
     \blankline{5}{1.5}
     
     \begin{center}
-        \includegraphics[width=0.6\paperwidth]{assets/figs/heading.png}
+        \includegraphics[width=0.6\paperwidth]{assets/figs/zjuchar.pdf}
     \end{center}
     
     \blankline{5}{1.5}
@@ -431,7 +436,7 @@ Test content. Test content. Test content. Test content. Test content. Test conte
     
     \blankline{-6}{1.5}
     \begin{center}
-        \includegraphics[width=0.15\paperwidth]{assets/figs/logo.png}
+        \includegraphics[width=0.15\paperwidth]{assets/figs/zju.pdf}
     \end{center}
     % \blankline{-6}{1}
 
@@ -441,7 +446,7 @@ Test content. Test content. Test content. Test content. Test content. Test conte
         \zihao{3}
         \makebox[2.5em][l]{\infotext{题目}}\underline{\makebox[18.5em][c]{\infotextnobf{\ProjectName}}} \\
         % 如果题目一行放不下启用下面这行，把上面一行注释掉
-        % \makebox[2.5em][l]{\infotext{题目}}\underline{\parbox[c]{18.5em}{\centering \infotextnobf{\ProjectName}}} \\
+        % \makebox[2.5em][l]{\infotext{题目}}\begin{minipage}[t]{18.5em}\centering\underline{\infotextnobf{\ProjectNameLineOne}} \\[4pt]\underline{\infotextnobf{\ProjectNameLineTwo}}\end{minipage} \\
         \blankline{2}{1}
         \blankline{2}{1}
         \makebox[5.5em][l]{\infotext{姓名与学号}}\underline{\makebox[15.5em][c]{\infotextnobf{\ifthenelse{\boolean{myblind}}{}{\StudentName\ \StudentID}}}} \\[16pt]
@@ -453,6 +458,7 @@ Test content. Test content. Test content. Test content. Test content. Test conte
     \end{center}
     
     \clearpage
+    \restoregeometry
 }
 %-----------------------------------------------------------------
 % environment settings
